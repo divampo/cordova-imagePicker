@@ -486,7 +486,17 @@ public class MultiImageChooserActivity extends Activity implements OnItemClickLi
         @Override
         protected ArrayList<String> doInBackground(Set<Entry<String, Integer>>... fileSets) {
             Set<Entry<String, Integer>> fileNames = fileSets[0];
+
             ArrayList<String> al = new ArrayList<String>();
+            // return real files is desired width and height is not defined
+            if (desiredWidth == 0 && desiredHeight == 0) {
+                Iterator<Entry<String, Integer>> i = fileNames.iterator();
+                while(i.hasNext()) {
+                    al.add(i.next().getKey());
+                }
+                return al;
+            }
+
             try {
                 Iterator<Entry<String, Integer>> i = fileNames.iterator();
                 Bitmap bmp;
